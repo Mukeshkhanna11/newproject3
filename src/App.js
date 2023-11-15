@@ -1,16 +1,16 @@
 // import { FaCartArrowDown, FaGithub } from "react-icons/fa";
 // import Cart from "./Cart";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 function App() {
-  const [username, setUsername] = useState("");
-  const handleChnage = (event) => {
-    setUsername(event.target.value);
-  };
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    alert(`you typed:${username}`);
-    setUsername("");
-  };
+  const [value, setValue] = useState(0);
+
+  //1.render for the first time
+  //2. anytime we do (side effect)
+  //dependency list
+  useEffect(() => {
+    console.log("helllo");
+    document.title = `increment(${value})`;
+  }, [value]);
   return (
     <>
       {/* <div>
@@ -18,11 +18,14 @@ function App() {
       </div>
       <FaGithub />
       <Cart /> */}
-      <h1>form demo</h1>
-      <form onSubmit={handleSubmit}>
-        <input type="text" value={username} onChange={handleChnage} />
-        <button>submit</button>
-      </form>
+      <h1>{value}</h1>
+      <button
+        onClick={() => {
+          setValue(value + 1);
+        }}
+      >
+        click here
+      </button>
     </>
   );
 }
