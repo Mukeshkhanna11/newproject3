@@ -1,19 +1,21 @@
-import { useState } from "react";
 import "./App.css";
-import Text from "./Text";
+import { useEffect, useState } from "react";
+
 function App() {
-  const [showtext, setShowText] = useState(false);
+  const fetchData = () => {
+    fetch("https://official-joke-api.appspot.com/jokes/programming/random")
+      .then((res) => res.json())
+      .then((data) => setCatFact(data["0"].setup, data["0"].punchline));
+  };
+  const [catfact, setCatFact] = useState("");
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <div className="App">
-      <button
-        onClick={() => {
-          setShowText(!showtext);
-        }}
-      >
-        show text
-      </button>
-      {showtext && <Text />}
+      <button onClick={fetchData}>generate joke</button>
+      <p>{catfact}</p>
     </div>
   );
 }
