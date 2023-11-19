@@ -1,21 +1,21 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { Home } from "./pages/Home";
+import { Menu } from "./pages/Menu";
 
 function App() {
-  const fetchData = () => {
-    fetch("https://official-joke-api.appspot.com/jokes/programming/random")
-      .then((res) => res.json())
-      .then((data) => setCatFact(data["0"].setup, data["0"].punchline));
-  };
-  const [catfact, setCatFact] = useState("");
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   return (
     <div className="App">
-      <button onClick={fetchData}>generate joke</button>
-      <p>{catfact}</p>
+      <Router>
+        <div>
+          <Link to="/">HOME</Link>
+          <Link to="/Menu">MENU</Link>
+        </div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/Menu" element={<Menu />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
